@@ -1,0 +1,41 @@
+--lesson 5 exercises
+--Adding to table:
+--Jonie Weber entered successfully
+insert into myemployees_trh031
+  (first_name,last_name,title,employee_age,salary)
+  values ('Jonie','Weber','Secretary',28,19500);
+--Potsy Weber successful
+
+insert into myemployees_trh031
+  (first_name,last_name,title,employee_age,salary)
+  values ('Potsy','Weber','Programmer',32,45300);
+
+--Dirk Smith successful
+insert into myemployees_trh031
+  (first_name,last_name,title,employee_age,salary)
+  values ('Dirk','Smith','Programmer II',45,75020);
+
+--1
+select * from myemployees_trh031
+--2
+select * from myemployees_trh031
+  where salary>30000
+--3
+select first_name,last_name from myemployees_trh031
+  where employee_age<30
+--4
+select first_name,last_name,salary from myemployees_trh031
+  where title like '%Programmer%'
+--5
+select * from myemployees_trh031
+  where last_name like '%ebe%'
+--6
+select first_name from myemployees_trh031
+  where first_name='Potsy'
+--7
+select * from myemployees_trh031
+  where employee_age>80
+--8
+select * from myemployees_trh031
+  where last_name like '%ith'
+

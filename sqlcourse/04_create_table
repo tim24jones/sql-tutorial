@@ -1,0 +1,9 @@
+--lesson 4 exercises
+--1
+create table myemployees_trh031
+(first_name varchar(15),
+ last_name varchar(20),
+ title varchar(30),
+ employee_age number(3),
+ salary number(9));
+
