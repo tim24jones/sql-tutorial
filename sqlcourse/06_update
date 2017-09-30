@@ -1,0 +1,54 @@
+--1
+update myemployees_trh031
+  set last_name='Weber-Williams'
+  where first_name='Jonie';
+select * from myemployees_trh031
+  where first_name='Jonie';
+
+--2
+update myemployees_trh031
+  set employee_age=employee_age+1
+  where first_name='Dirk';
+select * from myemployees_trh031
+  where first_name='Dirk';
+
+--3
+update myemployees_trh031
+  set title='Administrative Assistant'
+  where title='Secretary';
+select * from myemployees_trh031
+  where title='Administrative Assistant';
+select * from myemployees_trh031
+  where title='Secretary';
+
+--4
+update myemployees_trh031
+  set salary=salary+3500
+  where salary<30000;
+select first_name,last_name,salary from myemployees_trh031
+  where salary<33500;
+
+--5
+update myemployees_trh031
+  set salary=salary+4500
+  where salary>33500;
+select first_name,last_name,salary from myemployees_trh031
+  where salary>33500;
+
+--6
+update myemployees_trh031
+  set title='Programmer III'
+  where title='Programmer II';
+select first_name,last_name from myemployees_trh031
+  where title='Programmer II';
+select first_name,last_name from myemployees_trh031
+  where title='Programmer III';
+
+--7
+update myemployees_trh031
+  set title='Programmer II'
+  where title='Programmer';
+select first_name,last_name from myemployees_trh031
+  where title='Programmer';
+select first_name,last_name from myemployees_trh031
+  where title='Programmer II';

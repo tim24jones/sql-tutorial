@@ -1,0 +1,16 @@
+--1
+delete from employees_trh031
+  where first_name='Jonie' and last_name='Weber-Williams';
+select from employees_trh031
+  where first_name='Jonie' and last_name='Weber-Williams';
+
+--2
+delete from employees_trh031
+  where salary>70000;
+
+select first_name,last_name,salary from employees_trh031
+  where salary>70000;
+
+--3
+
+delete from employees_trh031
