@@ -1,0 +1,11 @@
+--1
+select customerid,item,price from items_ordered
+  where customerid=10449;
+--2
+select * from items_ordered
+  where item='tent';
+--3
+select customerid,order_date,item from items_ordered
+  where item like 'S%';
+--4
+select distinct item from items_ordered;

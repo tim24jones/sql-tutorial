@@ -1,0 +1,14 @@
+--1
+select state, count(state) 
+  from customers
+  group by state;
+
+--2
+select item, max(price),min(price)
+  from items_ordered
+  group by item;
+
+--3
+select customerid, count(customerid), sum(price)
+  from items_ordered
+  group by customerid;

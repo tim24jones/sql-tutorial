@@ -1,0 +1,10 @@
+--1
+select max(price) from items_ordered;
+--2
+select avg(price) from items_ordered
+  where order_date like '%dec%';
+--3
+select count(*) from items_ordered;
+--4
+select min(price) from items_ordered
+  where item='tent';
