@@ -1,0 +1,7 @@
+--1
+select customerid,order_date,item from items_ordered
+  where (item<>'Snow Shoes') and (item<>'Ear Muffs');
+
+--2
+select item,price from items_ordered
+  where (item like 'S%') or (item like 'P%') or (item like 'F%');

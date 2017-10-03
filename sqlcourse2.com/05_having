@@ -1,0 +1,14 @@
+--1
+select state, count(*) from customers
+  group by state
+  having count(*)>1;
+
+--2
+select item, max(price), min(price) from items_ordered
+  group by item
+  having max(price)>190;
+
+--3
+select customerid, sum(price), count(*) from items_ordered
+  group by customerid
+  having count(*)>1;

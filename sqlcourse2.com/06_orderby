@@ -1,0 +1,12 @@
+--1
+select lastname,firstname,city from customers
+  order by lastname asc;
+
+--2
+select lastname,firstname,city from customers
+  order by lastname desc;
+
+--3
+select item,price from items_ordered
+  where price>10
+  order by price asc;

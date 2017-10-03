@@ -1,0 +1,7 @@
+--1
+select order_date,item,price from items_ordered
+  where price between 10 and 80;
+
+--2
+select firstname,city,state from customers
+  where state in ('Arizona','Washington','Oklahoma','Colorado','Hawaii');

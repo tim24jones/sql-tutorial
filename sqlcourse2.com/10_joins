@@ -1,0 +1,10 @@
+--1
+select items_ordered.customerid,customers.firstname,customers.lastname,items_ordered.item,items_ordered.price
+  from customers,items_ordered
+  where customers.customerid=items_ordered.customerid;
+--2
+select items_ordered.customerid,customers.firstname,customers.lastname,items_ordered.item,items_ordered.price,customers.state
+  from customers,items_ordered
+  where customers.customerid=items_ordered.customerid
+  order by customers.state desc;
+--added select customer.state to show sorting by state
