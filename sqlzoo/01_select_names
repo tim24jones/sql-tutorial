@@ -1,0 +1,56 @@
+--001 select names
+
+--01
+SELECT name FROM world
+  WHERE name LIKE 'Y%';
+
+--02
+SELECT name FROM world
+  WHERE name LIKE '%y';
+
+--03
+SELECT name FROM world
+  WHERE name LIKE '%x%';
+
+--04
+SELECT name FROM world
+  WHERE name LIKE '%land';
+
+--05
+SELECT name FROM world
+  WHERE name LIKE 'C%ia';
+
+--06
+SELECT name FROM world
+  WHERE name LIKE '%oo%';
+
+--07
+SELECT name FROM world
+  WHERE name LIKE '%a%a%a%';
+
+--08
+SELECT name FROM world
+ WHERE name LIKE '_t%'
+ORDER BY name;
+
+--09
+SELECT name FROM world
+ WHERE name LIKE '%o__o%';
+
+--10
+SELECT name FROM world
+ WHERE name LIKE '____';
+
+--11
+SELECT name
+  FROM world
+ WHERE name=capital;
+
+--12
+SELECT name
+  FROM world
+ WHERE concat(name,' City')=capital;
+
+--13,14,15
+?
+

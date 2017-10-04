@@ -1,0 +1,56 @@
+--004 select within select
+
+--01
+
+SELECT name FROM world
+  WHERE population >
+     (SELECT population FROM world
+      WHERE name='Russia')
+
+--02
+
+SELECT name FROM world
+  WHERE gdp/population >
+     (SELECT gdp/population FROM world
+      WHERE name='United Kingdom') and continent='Europe';
+
+--03
+select name,continent from world
+  where (continent=
+    (select continent from world where name='Argentina'))
+  or (continent=
+    (select continent from world where name='Australia'))
+   order by name;
+
+--04
+select name,population from world
+  where (population>(select population from world where name='Canada'))
+  and (population<(select population from world where name='Poland'));
+
+--05
+select name,concat(round(100*population/(select population from world where name='Germany'),0),'%') from world
+  where continent='Europe';
+
+--06
+select name from world 
+  where gdp>(select max(gdp) from world where continent='Europe');
+
+--07
+SELECT continent, name, area FROM world x
+  WHERE area >= ALL
+    (SELECT area FROM world y
+        WHERE y.continent=x.continent
+          AND area>0)
+
+--08
+select continent, name from world x
+  where name<=all(select name from world y where y.continent=x.continent and name<'z%')
+
+--09
+select name,continent,population from world x
+  where 25000000>=all
+      (select population from world y
+        where y.continent=x.continent and population>0);
+
+--10
+?
