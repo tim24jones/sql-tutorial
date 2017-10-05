@@ -1,0 +1,96 @@
+--007 more join operations
+
+-01
+select id,title
+  from movie where yr=1962;
+
+-02
+select yr from movie where title='Citizen Kane';
+
+-03
+select id,title,yr from movie
+  where title like '%Star Trek%'
+  order by yr;
+
+-04
+select id from actor
+  where name='Glenn Close';
+
+-05
+select id from movie
+  where title='Casablanca';
+
+-06
+select name
+  from actor join casting on id=actorid
+  where movieid=11768;
+
+-07
+select name
+  from actor join casting on id=actorid
+  where movieid=(select id from movie where title='Alien');
+
+-08
+select title
+  from movie join casting on id=movieid
+  where actorid=(select id from actor where name='Harrison Ford');
+
+-09
+select title
+  from movie join casting on id=movieid
+  where (actorid=(select id from actor where name='Harrison Ford' and ord!=1))
+
+-10
+SELECT title,name FROM
+   movie JOIN casting ON movie.id=movieid
+         JOIN actor   ON actorid=actor.id
+  WHERE casting.ord=1 and yr=1962;
+
+--11
+--inscrutable, but works:
+SELECT yr,COUNT(title) FROM
+  movie JOIN casting ON movie.id=movieid
+         JOIN actor   ON actorid=actor.id
+where name='John Travolta'
+GROUP BY yr
+HAVING COUNT(title)=(SELECT MAX(c) FROM
+(SELECT yr,COUNT(title) AS c FROM
+   movie JOIN casting ON movie.id=movieid
+         JOIN actor   ON actorid=actor.id
+ where name='John Travolta'
+ GROUP BY yr) AS t
+)
+
+--12
+
+select title,name from movie join casting on movie.id=movieid join actor on actorid=actor.id
+  where casting.ord=1 and movie.id in(
+SELECT movieid FROM casting
+WHERE actorid IN (
+  SELECT id FROM actor
+  WHERE name='Julie Andrews'));
+
+--13
+select name from movie
+ join casting on movie.id=movieid 
+ join actor on actorid=actor.id
+ where casting.ord=1
+ group by name
+ having count(*)>=30
+
+--14
+select title,count(title) from movie
+  join casting on movie.id=movieid
+  join actor on actorid=actor.id
+  where movie.yr='1978'
+  group by title
+  order by count(title) desc,title;
+
+--15
+incorrect:
+select distinct name from movie 
+  join casting on movie.id=movieid
+  join actor on actor.id
+where movie.id in(
+select movieid from casting where actorid in(
+  select id from actor where name='Art Garfunkel'));

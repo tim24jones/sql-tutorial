@@ -1,0 +1,43 @@
+--008 using null
+
+--01
+SELECT code, name FROM party
+  WHERE leader IS NULL;
+
+--02
+SELECT teacher.name, dept.name
+ FROM teacher INNER JOIN dept
+           ON (teacher.dept=dept.id)
+
+--03
+SELECT teacher.name, dept.name
+  FROM teacher LEFT JOIN dept
+       ON (teacher.dept=dept.id)
+
+--04
+SELECT teacher.name, dept.name
+  FROM teacher RIGHT JOIN dept
+       ON (teacher.dept=dept.id)
+
+--05
+select name,coalesce(mobile,'07986 444 2266') from teacher;
+
+--06
+SELECT teacher.name, coalesce(dept.name,'None')
+  FROM teacher LEFT JOIN dept
+       ON (teacher.dept=dept.id);
+
+--07
+SELECT count(*),count(mobile) from teacher;
+
+--08
+SELECT dept.name, count(teacher.name)
+  FROM teacher RIGHT JOIN dept
+       ON (teacher.dept=dept.id)
+  group by dept.name
+
+--09
+select name, CASE WHEN (dept=1 or dept=2) then 'Sci' else 'Art' end from teacher;
+
+--10
+select name, CASE WHEN (dept=1 or dept=2) then 'Sci' when dept=3 then 'Art' else 'None' end from teacher;

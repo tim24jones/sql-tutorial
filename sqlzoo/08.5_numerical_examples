@@ -1,0 +1,59 @@
+--008.5 Numeric examples
+
+--01
+SELECT A_STRONGLY_AGREE
+  FROM nss
+ WHERE question='Q01'
+   AND institution='Edinburgh Napier University'
+   AND subject='(8) Computer Science'
+
+--02
+SELECT institution,subject
+  FROM nss
+ WHERE question='Q15'
+   AND score>=100;
+
+--03
+SELECT institution,score
+  FROM nss
+ WHERE question='Q15'
+   AND score<50
+   AND subject='(8) Computer Science';
+
+--04
+SELECT subject,sum(response)
+  FROM nss
+ WHERE question='Q22'
+   AND (subject='(8) Computer Science' or subject='(H) Creative Arts and Design')
+group by subject;
+
+--05
+SELECT subject,sum(response*A_STRONGLY_AGREE/100)
+  FROM nss
+ WHERE question='Q22'
+   AND (subject='(8) Computer Science' or subject='(H) Creative Arts and Design')
+  group by subject;
+
+--06
+SELECT subject,round(sum(response*A_STRONGLY_AGREE)/sum(response),0)
+  FROM nss
+ WHERE question='Q22'
+   AND (subject='(8) Computer Science' or subject='(H) Creative Arts and Design')
+ group by subject;
+
+--07
+SELECT institution,round(sum(score*response)/sum(response),0)
+  FROM nss
+ WHERE question='Q22'
+   AND (institution LIKE '%Manchester%')
+group by institution
+ORDER BY institution
+
+--08
+this is incorrect still:
+SELECT institution,sum(sample),sum(response)
+  FROM nss
+ WHERE question='Q01'
+   AND (institution LIKE '%Manchester%')
+  group by institution;
+
