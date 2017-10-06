@@ -1,0 +1,270 @@
+$ hostname
+~$ sudo apt-get upgrade
+~$ sudo apt-get update
+~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.7.19-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> \h
+
+For information about MySQL products and services, visit:
+   http://www.mysql.com/
+For developer information, including the MySQL Reference Manual, visit:
+   http://dev.mysql.com/
+To buy MySQL Enterprise support, training, or other products, visit:
+   https://shop.mysql.com/
+
+List of all MySQL commands:
+Note that all text commands must be first on line and end with ';'
+?         (\?) Synonym for `help'.
+clear     (\c) Clear the current input statement.
+connect   (\r) Reconnect to the server. Optional arguments are db and host.
+delimiter (\d) Set statement delimiter.
+edit      (\e) Edit command with $EDITOR.
+ego       (\G) Send command to mysql server, display result vertically.
+exit      (\q) Exit mysql. Same as quit.
+go        (\g) Send command to mysql server.
+help      (\h) Display this help.
+nopager   (\n) Disable pager, print to stdout.
+notee     (\t) Don't write into outfile.
+pager     (\P) Set PAGER [to_pager]. Print the query results via PAGER.
+print     (\p) Print current command.
+prompt    (\R) Change your mysql prompt.
+quit      (\q) Quit mysql.
+rehash    (\#) Rebuild completion hash.
+source    (\.) Execute an SQL script file. Takes a file name as an argument.
+status    (\s) Get status information from the server.
+system    (\!) Execute a system shell command.
+tee       (\T) Set outfile [to_outfile]. Append everything into given outfile.
+use       (\u) Use another database. Takes database name as argument.
+charset   (\C) Switch to another charset. Might be needed for processing binlog with multi-byte charsets.
+warnings  (\W) Show warnings after every statement.
+nowarning (\w) Don't show warnings after every statement.
+resetconnection(\x) Clean session context.
+
+For server side help, type 'help contents'
+
+mysql> create database testdb;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create user 'testuser'@'localhost' identified by 'password'
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> create user 'testuser'@'localhost' identified by 'password';
+ERROR 1396 (HY000): Operation CREATE USER failed for 'testuser'@'localhost'
+mysql> exit
+Bye
+~$ mysql -u testuser -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 6
+Server version: 5.7.19-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use testdb;
+ERROR 1044 (42000): Access denied for user 'testuser'@'localhost' to database 'testdb'
+mysql> show grants for 'testuser'@'localhost';
++----------------------------------------------+
+| Grants for testuser@localhost                |
++----------------------------------------------+
+| GRANT USAGE ON *.* TO 'testuser'@'localhost' |
++----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON testdb;
+ERROR 1046 (3D000): No database selected
+mysql> GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON testdb.* to 'testuser'@'localhost';
+ERROR 1044 (42000): Access denied for user 'testuser'@'localhost' to database 'testdb'
+mysql> exit
+Bye
+~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 7
+Server version: 5.7.19-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> GRANG SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON testdb.* to 'testuser'@'localhost';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'GRANG SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON testdb.* to 'testuser'@'localho' at line 1
+mysql> GRANT SELECT,INSERT,UPDATE,DELETE,CREATE,DROP ON testdb.* to 'testuser'@'localhost';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> exit
+Bye
+~$ mysql -u testuser -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 5.7.19-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use testdb;
+Database changed
+mysql> create table student(matric_no CHAR(8) PRIMARY KEY,first_name VARCHAR(50) NOT NULL,last_name VARCHAR(50) NOT NULL,date_of_birth DATE);
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> insert into "student"(matric_no,first_name,last_name,date_of_birth) values(40001010,Daniel,Radcliffe,1989-07-23);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"student"(matric_no,first_name,last_name,date_of_birth) values(40001010,Daniel,R' at line 1
+mysql> insert into "student"(matric_no,first_name,last_name,date_of_birth) values(40001010,'Daniel','Radcliffe',1989-07-23);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"student"(matric_no,first_name,last_name,date_of_birth) values(40001010,'Daniel'' at line 1
+mysql> insert into student(matric_no,first_name,last_name,date_of_birth) values(40001010,'Daniel','Radcliffe',1989-07-23);
+ERROR 1292 (22007): Incorrect date value: '1959' for column 'date_of_birth' at row 1
+mysql> insert into student(matric_no,first_name,last_name,date_of_birth) values(40001010,'Daniel','Radcliffe',1989-07-23);
+ERROR 1292 (22007): Incorrect date value: '1959' for column 'date_of_birth' at row 1
+mysql> insert into student(matric_no,first_name,last_name,date_of_birth) values(40001010,'Daniel','Radcliffe','1989-07-23');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into student(matric_no,first_name,last_name,date_of_birth) values(40001011,'Emma','Watson','1990-04-15');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into student(matric_no,first_name,last_name,date_of_birth) values(40001012,'Rupert','Grint','1988-10-24');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> create table module(module_code CHAR(8) PRIMARY KEY,module_title VARCHAR(50) NOT NULL,level INT NOT NULL,credits INT NOT NULL DEFAULT 20);
+Query OK, 0 rows affected (0.41 sec)
+
+mysql> insert into module(module_code,module_title,level) values(HUF07101,'Herbology',7)
+    -> ;
+ERROR 1054 (42S22): Unknown column 'HUF07101' in 'field list'
+mysql> insert into module(module_code,module_title,level) values(HUF07101,'Herbology',7);
+ERROR 1054 (42S22): Unknown column 'HUF07101' in 'field list'
+mysql> insert into module(module_code,module_title,level) values('HUF07101','Herbology',7);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into module(module_code,module_title,level) values('SLY07102','Defence Against the Dark Arts',7);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into module(module_code,module_title,level) values('HUF08102','History of Magic',8);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> create table registration(matric_no CHAR(8),module_code CHAR(8),result DECIMAL(4,1),PRIMARY KEY (matric_no,module_code),FOREIGN KEY(matric_no) REFERENCES student(matric_no),FOREIGN KEY(module_code) REFERENCES module(module_code));
+ERROR 1142 (42000): REFERENCES command denied to user 'testuser'@'localhost' for table 'student'
+mysql> exit
+Bye
+~$ mysql -u root -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 5.7.19-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> GRANT REFERENCES on testdb.* to 'testuser'@'localhost';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> exit
+Bye
+~$ mysql -u testuser -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 5.7.19-0ubuntu0.16.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create table registration(matric_no CHAR(8),module_code CHAR(8),result DECIMAL(4,1),PRIMARY KEY (matric_no,module_code),FOREIGN KEY(matric_no) REFERENCES student(matric_no),FOREIGN KEY(module_code) REFERENCES module(module_code));
+ERROR 1046 (3D000): No database selected
+mysql> use testdb;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> create table registration(matric_no CHAR(8),module_code CHAR(8),result DECIMAL(4,1),PRIMARY KEY (matric_no,module_code),FOREIGN KEY(matric_no) REFERENCES student(matric_no),FOREIGN KEY(module_code) REFERENCES module(module_code));
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> INSERT INTO registration VALUES ('40001010','SLY07102',90);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> INSERT INTO registration VALUES ('40001010','HUF07101',40);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO registration VALUES ('40001010','HUF08102',null);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> INSERT INTO registration VALUES ('40001011','SLY07102',99);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO registration VALUES ('40001011','HUF08102',null);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO registration VALUES ('40001012','SLY07102',20);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> INSERT INTO registration VALUES ('40001012','HUF07101',20);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select last_name,first_name,result,case when result<=39 then 'F', when result>=70 then 'M' else 'P' end
+    -> from name join to registration on (matric_no=matric_no);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' when result>=70 then 'M' else 'P' end
+from name join to registration on (matric' at line 1
+mysql> select last_name,first_name,result,case when result<=39 then 'F', when result>=70 then 'M' else 'P' end from name join to registration on (matric_no=matric_no) having module_code='SLY07102';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' when result>=70 then 'M' else 'P' end from name join to registration on (matric' at line 1
+mysql> select last_name,first_name,result,case when result<=39 then 'F', when result>=70 then 'M' else 'P' end from name join to registration on (matric_no=matric_no) where module_code='SLY07102';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' when result>=70 then 'M' else 'P' end from name join to registration on (matric' at line 1
+mysql> select last_name,first_name,result,case when result<=39 then 'F', when result>=70 then 'M' else 'P' end from name join to registration on (matric_no=matric_no) where module_code='SLY07102';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' when result>=70 then 'M' else 'P' end from name join to registration on (matric' at line 1
+mysql> SELECT last_name,first_name,result,CASE WHEN result<=39 THEN 'F', WHEN result>=70 THEN 'M' ELSE 'P' END from student join to registration on (matric_no=matric_no) where module_code='SLY07102';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' WHEN result>=70 THEN 'M' ELSE 'P' END from student join to registration on (mat' at line 1
+mysql> SELECT last_name,first_name,result,CASE WHEN result<=39 THEN 'F', WHEN result>=70 THEN 'M' ELSE 'P' END FROM student join to registration on (matric_no=matric_no) HAVING module_code='SLY07102';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ' WHEN result>=70 THEN 'M' ELSE 'P' END FROM student join to registration on (mat' at line 1
+mysql> SELECT last_name,first_name,result,CASE WHEN result<=39 THEN 'F' WHEN result>=70 THEN 'M' ELSE 'P' END FROM student join to registration on (matric_no=matric_no) WHERE module_code='SLY07102';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'to registration on (matric_no=matric_no) WHERE module_code='SLY07102'' at line 1
+mysql> SELECT last_name,first_name,result,CASE WHEN result<=39 THEN 'F' WHEN result>=70 THEN 'M' ELSE 'P' END FROM student join registration on (matric_no=matric_no) WHERE module_code='SLY07102';
+ERROR 1052 (23000): Column 'matric_no' in on clause is ambiguous
+mysql> SELECT last_name,first_name,result,CASE WHEN result<=39 THEN 'F' WHEN result>=70 THEN 'M' ELSE 'P' END FROM student join registration on (student.matric_no=registration.matric_no) WHERE module_code='SLY07102';
++-----------+------------+--------+---------------------------------------------------------------------+
+| last_name | first_name | result | CASE WHEN result<=39 THEN 'F' WHEN result>=70 THEN 'M' ELSE 'P' END |
++-----------+------------+--------+---------------------------------------------------------------------+
+| Radcliffe | Daniel     |   90.0 | M                                                                   |
+| Watson    | Emma       |   99.0 | M                                                                   |
+| Grint     | Rupert     |   20.0 | F                                                                   |
++-----------+------------+--------+---------------------------------------------------------------------+
+3 rows in set (0.01 sec)
+
+mysql> exit
+Bye
+~$ 
