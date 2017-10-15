@@ -1,2 +1,2 @@
 # sql-tutorial
-answers to sqlcourse.com and sqlcourse2.com
+answers to sqlcourse.com, sqlcourse2.com and sqlzoo.net
